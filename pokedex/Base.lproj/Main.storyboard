@@ -211,6 +211,9 @@
                                                     <segment title="Moves"/>
                                                 </segments>
                                                 <color key="tintColor" red="1" green="0.34509803919999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <connections>
+                                                    <action selector="segCtrlPressed:" destination="XMO-qA-M7K" eventType="valueChanged" id="TMY-C1-7K0"/>
+                                                </connections>
                                             </segmentedControl>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jUG-U7-9uN">
                                                 <rect key="frame" x="0.0" y="43" width="343" height="120"/>
@@ -403,20 +406,55 @@
                                     <constraint firstAttribute="trailing" secondItem="4KL-NI-Vdf" secondAttribute="trailing" id="sDQ-r3-8iS"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="waK-WZ-e94">
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="waK-WZ-e94">
                                 <rect key="frame" x="53" y="539" width="270" height="120"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ogH-zf-KDp">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ogH-zf-KDp">
                                         <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="JuH-4M-TTD"/>
+                                        </constraints>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="biW-rz-SnM">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="biW-rz-SnM">
                                         <rect key="frame" x="150" y="0.0" width="120" height="120"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="uiM-6M-Bvc"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="Rjt-or-NJG"/>
                                 </constraints>
                             </stackView>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PIc-Xj-s2r">
+                                <rect key="frame" x="24" y="257" width="327" height="390"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovesCell" id="DXA-f6-hgn" customClass="MovesCell" customModule="pokedex" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="327" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DXA-f6-hgn" id="3Ea-vZ-0dN">
+                                            <rect key="frame" x="0.0" y="0.0" width="327" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Move - (Type)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3bU-Fn-EEd">
+                                                    <rect key="frame" x="102" y="8" width="123" height="27.5"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="20"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="3bU-Fn-EEd" firstAttribute="centerX" secondItem="3Ea-vZ-0dN" secondAttribute="centerX" id="e3d-6e-Xil"/>
+                                                <constraint firstItem="3bU-Fn-EEd" firstAttribute="centerY" secondItem="3Ea-vZ-0dN" secondAttribute="centerY" id="gTZ-zw-0A1"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="moveLbl" destination="3bU-Fn-EEd" id="Ef4-2S-1o0"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -425,8 +463,12 @@
                             <constraint firstItem="tKZ-kN-kg3" firstAttribute="top" secondItem="waK-WZ-e94" secondAttribute="bottom" constant="8" id="HIj-Us-2j1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hBQ-3m-xyR" secondAttribute="trailing" id="MFj-rY-Ao1"/>
                             <constraint firstItem="hBQ-3m-xyR" firstAttribute="leading" secondItem="Azg-1l-ND8" secondAttribute="leadingMargin" id="OJI-qT-kO9"/>
+                            <constraint firstItem="tKZ-kN-kg3" firstAttribute="top" secondItem="PIc-Xj-s2r" secondAttribute="bottom" constant="20" id="Ug0-ox-Ngo"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="PIc-Xj-s2r" secondAttribute="trailing" constant="8" id="XNi-uK-jsi"/>
                             <constraint firstItem="Pi0-zD-XDl" firstAttribute="top" secondItem="Azg-1l-ND8" secondAttribute="top" id="avx-OE-Wdu"/>
                             <constraint firstItem="LGg-5G-HKC" firstAttribute="leading" secondItem="Azg-1l-ND8" secondAttribute="leading" id="h2q-Uj-MQw"/>
+                            <constraint firstItem="PIc-Xj-s2r" firstAttribute="top" secondItem="Pi0-zD-XDl" secondAttribute="bottom" constant="192" id="hL6-WB-Rh4"/>
+                            <constraint firstItem="PIc-Xj-s2r" firstAttribute="leading" secondItem="Azg-1l-ND8" secondAttribute="leadingMargin" constant="8" id="jht-Y3-5bj"/>
                             <constraint firstAttribute="trailing" secondItem="Pi0-zD-XDl" secondAttribute="trailing" id="s7M-HX-JKo"/>
                             <constraint firstAttribute="trailing" secondItem="LGg-5G-HKC" secondAttribute="trailing" id="u5n-aN-LDN"/>
                             <constraint firstItem="waK-WZ-e94" firstAttribute="centerX" secondItem="Azg-1l-ND8" secondAttribute="centerX" id="wbN-qC-Tyz"/>
@@ -439,11 +481,16 @@
                         <outlet property="defenseLbl" destination="hGc-Uh-96r" id="ddM-aF-jxg"/>
                         <outlet property="descriptionLbl" destination="0Yn-kg-iaH" id="Zzq-iq-JuX"/>
                         <outlet property="evoLbl" destination="4KL-NI-Vdf" id="k8G-T3-zcE"/>
+                        <outlet property="evoStackView" destination="waK-WZ-e94" id="CZI-49-v0X"/>
+                        <outlet property="evoView" destination="LGg-5G-HKC" id="pij-qU-0Am"/>
                         <outlet property="heightLbl" destination="9iH-2v-NKi" id="mLH-m4-JUS"/>
                         <outlet property="mainImg" destination="uxj-Ec-xJC" id="Gvx-Dd-lzs"/>
+                        <outlet property="movesTableView" destination="PIc-Xj-s2r" id="GJK-uT-XnP"/>
                         <outlet property="nameLbl" destination="pVe-Bo-duf" id="wFS-xJ-AYC"/>
                         <outlet property="nextEvoImg" destination="biW-rz-SnM" id="iaB-Qk-qXQ"/>
+                        <outlet property="pkmnInfoStackView" destination="wdm-Fd-A9A" id="R9S-0Q-hca"/>
                         <outlet property="pokedexLbl" destination="rLY-6p-CRl" id="bQb-lu-Ft0"/>
+                        <outlet property="segCtrl" destination="Mc0-p6-kb8" id="KTx-qX-6gD"/>
                         <outlet property="typeLbl" destination="hCz-Mh-2Lu" id="nfQ-ey-sYY"/>
                         <outlet property="weightLbl" destination="Tra-9g-GL9" id="vly-96-7P4"/>
                     </connections>

@@ -8,8 +8,9 @@
 
 import UIKit
 
-class PokemonDetailVC: UIViewController {
+class PokemonDetailVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var segCtrl: UISegmentedControl!
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var mainImg: UIImageView!
     @IBOutlet weak var descriptionLbl: UILabel!
@@ -22,6 +23,10 @@ class PokemonDetailVC: UIViewController {
     @IBOutlet weak var currentEvoImg: UIImageView!
     @IBOutlet weak var nextEvoImg: UIImageView!
     @IBOutlet weak var evoLbl: UILabel!
+    @IBOutlet weak var pkmnInfoStackView: UIStackView!
+    @IBOutlet weak var evoStackView: UIStackView!
+    @IBOutlet weak var evoView: UIView!
+    @IBOutlet weak var movesTableView: UITableView!
     
     var pokemon: Pokemon!
     
@@ -30,10 +35,13 @@ class PokemonDetailVC: UIViewController {
         
         let img = UIImage(named: "\(pokemon.pokedexID)")
 
+        movesTableView.delegate = self
+        movesTableView.dataSource = self
         mainImg.image = img
         currentEvoImg.image = img
         pokemon.downloadPokemonDetails {
             self.updateUI()
+            self.movesTableView.reloadData()
         }
     }
     
@@ -56,8 +64,40 @@ class PokemonDetailVC: UIViewController {
             evoLbl.text = "Next evolution: \(pokemon.nextEvoName) - LVL \(pokemon.nextEvoLVL)"
         }
     }
+    
+    func hideShowInfo() {
+        evoView.isHidden = !evoView.isHidden
+        pkmnInfoStackView.isHidden = !pkmnInfoStackView.isHidden
+        evoStackView.isHidden = !evoStackView.isHidden
+        movesTableView.isHidden = !movesTableView.isHidden
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "MovesCell", for: indexPath) as? MovesCell {
+            
+            cell.configCell(pokemon: pokemon, ndx: indexPath.row)
+            
+            return cell
+        } else {
+            return MovesCell()
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return pokemon.moves.count
+    }
 
     @IBAction func backBtnPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func segCtrlPressed(_ sender: Any) {
+        hideShowInfo()
+    }
+    
 }

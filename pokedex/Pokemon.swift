@@ -24,6 +24,7 @@ class Pokemon {
     private var _nextEvoID: String!
     private var _nextEvoLVL: String!
     private var _pokemonURL: String!
+    private var _moves: [String]!
     
     var nextEvoLVL: String {
         _nextEvoLVL = _nextEvoLVL == nil ? "" : _nextEvoLVL
@@ -93,6 +94,12 @@ class Pokemon {
         return _pokedexID
     }
     
+    var moves: [String] {
+        _moves = _moves == nil ? [] : _moves.sorted()
+        
+        return _moves
+    }
+    
     init(name: String, pokedexID: Int) {
         _name = name.capitalized
         _pokedexID = pokedexID
@@ -138,6 +145,14 @@ class Pokemon {
                     self._type = ""
                 }
                 
+                if let movesDict = dict["moves"] as? [Dictionary<String, AnyObject>] {
+                    for move in movesDict {
+                        let str = "\(move["name"]!) - (\(move["learn_type"]!))"
+                        
+                        self._moves.append(str)
+                    }
+                }
+                
                 if let descArr = dict["descriptions"] as? [Dictionary<String, String>],
                     descArr.count > 0 {
                     
@@ -151,7 +166,6 @@ class Pokemon {
                                 if let desc = descDict["description"] as? String {
                                     let newDesc = desc.replacingOccurrences(of: "POKMON", with: "Pokemon")
                                     
-                                    print(newDesc)
                                     self._description = newDesc
                                 }
                             }
@@ -190,9 +204,6 @@ class Pokemon {
                             }
                         }
                     }
-                    print(self.nextEvoID)
-                    print(self.nextEvoLVL)
-                    print(self.nextEvoName)
                 }
             }
             completed()
