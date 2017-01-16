@@ -131,9 +131,11 @@ class ViewController: UIViewController, UICollectionViewDelegate,
             let lower = searchBar.text!.lowercased()
             
             inSearchMode = true
-            filteredPokemon = pokemons.filter({$0.name.range(of: lower) != nil})
+            filteredPokemon = pokemons.filter({$0.name.localizedStandardRange(of: lower) != nil})
             collection.reloadData()
+            
         }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
